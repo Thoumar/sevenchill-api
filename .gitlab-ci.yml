@@ -1,0 +1,45 @@
+# Get the last NodeJS version
+image: node:10
+
+# List all the stages
+stages:
+  - build
+  - lint
+  - test
+#  - deploy
+
+# Build the app
+Build:
+  stage: build
+  script: npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+# Run eslint on the project
+Lint:
+  stage: lint
+  script: npm run lint
+
+# Run tests suites on the project
+Test:
+  stage: test
+  script: npm run test
+
+# Run deploy process from master to the server 
+# Deploy:
+#   stage: deploy
+#   only:
+#   - master
+#   script:
+#     - apt-get update -qq
+#     - apt-get install -qq git
+#     - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+#     - eval $(ssh-agent -s)
+#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
+#     - mkdir -p ~/.ssh
+#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#     - ssh sevenchill@104.248.170.195 "cd ../var/www/sevenchill-api && git checkout master && git pull origin master && npm install && node index && exit"
+
+
+
